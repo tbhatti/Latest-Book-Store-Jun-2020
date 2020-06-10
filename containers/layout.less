@@ -1,227 +1,351 @@
 @import "../components/home/home.less";
 @import "../components/admin/home/admin-home.less";
 
-.container-home-page {
-    //margin: 0 200px 100px 200px;
-    //box-shadow: 0 8px 6px -2px #ccc;
-    
+.page-layout {    
     .container {
-        min-width: 100% !important;
-        //box-shadow: 0 5px 40px -2px #000;
-        
+        min-width: 100% !important;        
         padding: 0 50px;
         background: #0C2963;
         color: #FFF;
-    
-        .order-12 {
-            padding: 20px;
-        }
-
-        .order-1 {
-                       
-            .help-contact-us {
-                height: 100%;
-                line-height: 32px;
-                .icon-home {
-                    font-size: 18px;
-                    padding: 7px;
-                    border-right: 1px solid #999;
-                    width: 45px;
+        .row {    
+            .order-12 {
+                padding: 20px;
+            }
+            .order-1 {                       
+                .help-contact-us {
                     height: 100%;
-                    cursor: pointer;
-                    line-height: 18px;
-                }
-
-                .icon-envelope {
-                    font-size: 18px;
-                    padding: 7px 14px;
-                    border-right: 1px solid #999;
-                    width: 130px;
-                    height: 100%;
-                    line-height: 18px;
-                    cursor: pointer;
-                    .contact-us-label {
-                        padding-left: 10px;
-                        font-size: 13px;
-                        padding-left: 10px;
-                        display: inline-block;
+                    line-height: 32px;
+                    .icon-home {
+                        font-size: 18px;
+                        padding: 7px;
+                        border-right: 1px solid #999;
+                        width: 45px;
                         height: 100%;
-                        vertical-align: middle;
-                        font-family: Century Gothic;
+                        cursor: pointer;
+                        line-height: 18px;
+                    }
+                    .icon-envelope {
+                        font-size: 18px;
+                        padding: 7px 14px;
+                        border-right: 1px solid #999;
+                        width: 130px;
+                        height: 100%;
+                        line-height: 18px;
+                        cursor: pointer;
+                        .contact-us-label {
+                            padding-left: 10px;
+                            font-size: 13px;
+                            padding-left: 10px;
+                            display: inline-block;
+                            height: 100%;
+                            vertical-align: middle;
+                            font-family: Century Gothic;
+                        }
                     }
                 }
             }
+            .container-user-profile {           
+                color: #FFF;
+                text-align: right;
+                .conatiner-welcome {                    
+                    .welcome-label {
+                        font-size: 13px;
+                        display: inline-block;
+                        height: 100%;
+                        vertical-align: middle;
+                        font-family: "Century Gothic";
+                        line-height: 32px;        
+                    }
+                    .logout{
+                        padding-left: 10px;
+                    }
+                    .logout-span {
+                        display: block;
+                    }
+                }
+                .shopping-cart {
+                    margin: 10px;
+                    float: left;
+                    padding: 0px 0 10px 10px;
+                    cursor: pointer;
+                    position: absolute;
+                    right: 249px;
+                    top: -2px;
+                    font-size: 13px;
+                    font-family: Century Gothic;
+                    .circleBase {
+                        border-radius: 50%;
+                    }
+                    .type3 {
+                        width: 25px;
+                        height: 25px;
+                        background: #E0482A;
+                        display: inline-block;
+                        float: right;
+                        text-align: -webkit-center;
+                        padding: 3px;
+                        font-weight: bold;
+                        position: absolute;
+                        top: -4px;
+                        margin-left: 12px;
+                        font-family: "Century Gothic";
+                    }
+                    .icon-cart {
+                        font-size: 18px;
+                    }  
+                    .label-cart {
+                        font-size: 13px;
+                        padding-left: 10px;
+                        font-family: "Century Gothic";
+                    }
+                    .label-cart:hover {
+                        text-decoration: underline;
+                    } 
+                }
+            }
         }
-    
+        
+    } 
+    .container-top-header-logo {
+        height: 80px;
+        width: 100%;
+        box-shadow: 0 5px 15px -2px #CCCCCC;
+        padding-left: 65px;
+        .glyphicon-book {
+            font-size: 82px;
+            color: #0C2963;
+        }
+        .logo-container {
+            width: 250px;
+            display: inline-block;
+            vertical-align: top;
+            padding-top: 12px;
+            .logo {
+                height: 60px;
+                float: left;
+                display: inline-block;
+            }
+        }
+    }
+
+    .container-drop-down-menu {
+        height: 45px;
+        background: #FFFFFF;
+        padding-left: 0;
+        padding-top: 15px;
+        box-shadow: 10px 2px 10px 2px #CCCCCC;
+        margin-bottom: 10px;
+        color: #0C2963;
+        font-size: 13px;
+        .fa-enlarge-icon {
+            font-size: 18px;
+            padding-right: 5px;
+        }
+
+        .books-list {
+            display: inline-block;
+            margin-left: 80px;
+            font-family: 'Century Gothic';
+            height: 100%;
+            cursor: pointer;
+            &:hover {
+                border-bottom: 2px solid #0C2963;
+            }
+        }
+        .border-bottom {
+            border-bottom: 2px solid #0C2963 !important; 
+        }
+
+        .books-categories {
+            display: inline-block;
+            margin-left: 40px;
+            font-family: 'Century Gothic';
+            height: 100%;
+            cursor: pointer;
+            &:hover {
+                border-bottom: 2px solid #0C2963;
+            }
+        }
+
+        .publishers-list {
+            display: inline-block;
+            margin-left: 40px;
+            font-family: 'Century Gothic';
+            height: 100%;
+            cursor: pointer;
+            &:hover {
+                border-bottom: 2px solid #0C2963;
+            }
+        }
+
+        .authors-list {
+            display: inline-block;
+            margin-left: 40px;
+            font-family: 'Century Gothic';
+            height: 100%;
+            cursor: pointer;
+            &:hover {
+                border-bottom: 2px solid #0C2963;
+            }
+        }
         
     }
-    .container-user-profile {           
-            color: #FFF;
-            text-align: right;
-        .conatiner-welcome {
-            
-            .welcome-label {
-                font-size: 13px;
+    .container-drop-down-menu-non-admin {
+        height: 45px;
+        background: #FFFFFF;
+        padding-left: 130px;
+        padding-top: 15px;
+        box-shadow: 0 1px 10px 0px #CCC;
+        margin-bottom: 10px;
+        font-size: 13px;
+        .drop-dwon {
+            height: 100%;
+            font-size: 13px;
+            font-family: 'Century Gothic';
+            display: inline-block;
+            width: 155px;
+            padding-left: 5px;
+            cursor: pointer;
+            .fa-chevron-down {
                 display: inline-block;
-                height: 100%;
-                vertical-align: middle;
-                font-family: "Century Gothic";
-                line-height: 32px;
-
-            }
-            .logout{
                 padding-left: 10px;
             }
-            .logout-span {
-                display: block;
+            .fa-chevron-up {
+                display: none;
+                padding-left: 10px;
             }
-            
+            .container-categories {
+                font-size: 13px;
+                width: 700px;
+                height: 250px;
+                position: absolute;
+                background: #FFFFFF;
+                left: 65px;
+                z-index: 999;
+               display: none;
+                top: 160px;
+                border: 1px solid #CCC;
+                .list-categories {
+                    list-style: none;
+                    display: contents;
+                    //font-family: 'Century Gothic';
+                    li {
+                        padding: 4px 0 4px 5px;
+                        font-family: 'Century Gothic';
+                        
+                        &:hover {
+                            background: #EEE;
+                        }
+                    }
+                }
+                .column-left {
+                    padding-left: 10px;
+                    width: 33%;
+                    display: inline-block;
+                    float: left;
+                    .top-categories {
+                        padding: 10px 0 0px 10px;
+                        font-size: 13px;
+                        border-bottom: 1px solid;
+                        width: 120px;
+                        font-weight: bold;
+                        font-family: 'Century Gothic';
+                        margin-bottom: 10px;
+                    }
+                }
+                .column-middle {
+                    width: 33%;
+                    display: inline-block;
+                    float: left;
+                    .top-authors {
+                        padding: 10px 0 0px 10px;
+                        font-size: 13px;
+                        border-bottom: 1px solid;
+                        width: 120px;
+                        font-weight: bold;
+                        font-family: 'Century Gothic';
+                        margin-bottom: 10px;
+                    }
+                }
+
+                .column-right {
+                    width: 33%;
+                    display: inline-block;
+                    float: left;
+                    .top-authors {
+                        padding: 10px 0 0px 10px;
+                        font-size: 16px;
+                        border-bottom: 1px solid;
+                        width: 150px;
+                        font-weight: bold;
+                    }
+                }
+            }
+            &:hover {
+                border-bottom: 2px solid #3D414A;
+                .container-categories {
+                    display: block;
+                    border-top: 5px solid #2F9AC1;
+                }
+                .fa-chevron-down {
+                    display: none;
+                }
+                .fa-chevron-up {
+                    display: inline-block;
+                }
+            }
         }
+
+        .top-sellers {
+            display: inline-block;
+            margin-left: 80px;
+            font-family: 'Century Gothic';
+            height: 100%;
+            cursor: pointer;
+            &:hover {
+                border-bottom: 2px solid #3D414A;
+            }
+        }
+
+        .coming-soon {
+            display: inline-block;
+            margin-left: 40px;
+            font-family: 'Century Gothic';
+            height: 100%;
+            cursor: pointer;
+            &:hover {
+                border-bottom: 2px solid #3D414A;
+            }
+        }
+
+        .bargain {
+            display: inline-block;
+            margin-left: 40px;
+            font-family: 'Century Gothic';
+            height: 100%;
+            cursor: pointer;
+            &:hover {
+                border-bottom: 2px solid #3D414A;
+            }
+        }
+
+        .highlights {
+            display: inline-block;
+            margin-left: 40px;
+            font-family: 'Century Gothic';
+            height: 100%;
+            cursor: pointer;
+            &:hover {
+                border-bottom: 2px solid #3D414A;
+            }
+        }
+        
     }
-    
 
     .container-middle-page {       
         height: 750px;
-        //margin: 0px 100px;
-        @media (min-width: 900px) {
-            .container {
-                z-index: 0;
-                float: right;
-                
-            }
-        }
-        .container-menu {
-            width: 200px;
-            height: 100%;
-            float: left;
-            border: 1px solid green;
-            .menu {
-                height: 40px;
-                background: #333;
-                box-shadow: 0 0px 40px -2px #135B9E;
-                color: #FFF;
-                margin: 0 0 5px 0;
-                font-size: 14px;
-                font-family: century gothic;
-                cursor: pointer;
-                text-align: right;
-                padding-right: 10px;
-                line-height: 38px;
-            }
-            .home-simple {
-                margin-left: 100px;
-                width: 100px;
-            }
-            .categories {
-                margin-left: 70px;
-                width: 130px;
-            }
-            .books-list {
-                margin-left: 115px;
-                width: 85px;
-            }
-            .authors-list {
-                margin-left: 101px;
-                width: 100px;  
-            }
-
-            .publishers-list {
-                margin-left: 86px;
-                width: 115px; 
-            }
-            // Selected Book Categories Class
-            .book-categories {
-                background: #E0482A;
-                width: 140px;
-                position: sticky;
-                box-shadow: 12px 5px 10px -1px #555;
-            }
-            .home {
-                background: #E0482A;
-                width: 110px;
-                position: sticky;
-                box-shadow: 12px 5px 10px -1px #555;
-            }
-            .books {
-                background: #E0482A;
-                width: 95px;
-                position: sticky;
-                box-shadow: 12px 5px 10px -1px #555;
-            }
-
-            .authors {
-                background: #E0482A;
-                width: 110px;
-                position: sticky;
-                box-shadow: 12px 5px 10px -1px #555; 
-            }
-
-            .publishers {
-                background: #E0482A;
-                width: 125px;
-                position: sticky;
-                box-shadow: 12px 5px 10px -1px #555; 
-            }
-
-        }
-        .hide-left-menu-non-admin {
-            display: none;
-        }
-        .container-page {
-            display: inline-block;
-            width: 88%;
-            //border: 1px solid #FF0000;
-            //border-bottom: none;
-            height: 100%;
-            //overflow-y: auto;
-        }
-
-        .container-page-non-admin {
-            width: 100% ;
-        }
     }
     
 }
-.shopping-cart {
-    margin: 10px;
-    float: left;
-    padding: 0px 0 10px 10px;
-    cursor: pointer;
-    position: absolute;
-    right: 249px;
-    top: -2px;
-    font-size: 13px;
-    font-family: Century Gothic;
-    .circleBase {
-        border-radius: 50%;
-        //behavior: url(PIE.htc); /* remove if you don't care about IE8 */
-    }
-    
-    .type3 {
-    width: 25px;
-    height: 25px;
-    background: #E0482A;
-    display: inline-block;
-    float: right;
-    text-align: -webkit-center;
-    padding: 3px;
-    font-weight: bold;
-    position: absolute;
-    top: -4px;
-    margin-left: 12px;
-    font-family: "Century Gothic";
 
-    }
-    .icon-cart {
-        font-size: 18px;
-    }  
-    .label-cart {
-        font-size: 13px;
-        padding-left: 10px;
-        font-family: "Century Gothic";
-    }
-    .label-cart:hover{
-        text-decoration: underline;
-    } 
-}
 

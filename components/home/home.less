@@ -1,121 +1,19 @@
-.container-introduction {
-    height: 100%;
-    display: inline-block;
-    width: 100%;
-    padding-left: 20px;
-    .container-big-menu {
-        width: 20%;
-        height: 310px;
-        background: #1E154E;
-        float: left;
-        margin-top: 25px;
-        .icon-container {
-            width: 50%;
-            height: 50%;
-            float: left;
-            border: 1px solid #FFF;
-            display: flex;
-            flex-direction: column;
-            img {
-                height: 117px;
-            }
-            padding: 2px;
-            .text-area {
-                width: 100%;
-                height: 30px;
-                background: #FFF;
-                margin-top: auto;
-                cursor: pointer;
-                opacity: 0.7;
-                font-size: 16px;
-                text-align: center;
-                color: #CCC;
-            }
-            &:hover {
-                .text-area {
-                    opacity: 1.0;
-                    color: #000;
-                }
-                
-            }
-        }
-    }
-
-    .container-welcome-message {                                
-            float: right;
-            width: 76%;
-            margin-top: 25px;
-        .welcome-message {
-            font-size: 18px;
-            font-weight: bold;
-            color: #444;
-            padding-right: 10px;
-        }
-        .school-name {
-            font-size: 24px;
-            font-weight: bold;
-            color: #1E154E;
-        }
-
-        .container-intro-image {
-            display: block;
-            img {
-                width: 150px;;
-            }
-        }
-        .label-aims {
-            font-size: 24px;
-            font-weight: bold;
-            color: #1E154E;
-            padding-top: 10px;
-        }
-        .para-aims {
-            font-size: 12px;
-            font-family: 'Century Gothic';
-        }
-
-        
-    }
-}
-
-.home-page {
+.non-admin-home-page { 
     height: 100%;
     .container-top-header {
         height: 80px;
+        transition: height 0.3s ease-out;
         width: 100%;
         box-shadow: 0 5px 40px -2px #000;
         padding-left: 115px;
-        .glyphicon-book {
-            font-size: 82px;
-            color: #0C2963;
-        }
-        .logo-container {
-            width: 250px;
-            display: inline-block;
-            vertical-align: top;
-            padding-top: 12px;
-            .logo {
-                height: 60px;
-                float: left;
-                display: inline-block;
-            }
-            .store-name {
-                font-size: 36px;
-                font-weight: bold;
-                font-family: 'Century Gothic';
-                color: #FFF;
-            }
-        }
-       
+        margin-bottom: 10px;
         .buttons-container {
-            width: 75%;
-            padding-left: 100px;
+            width: 100%;
             display: inline-block;
             padding-top: 20px;
             .form-group {
                 width: 50%;
                 float: left;
-                display: inline-block;
                 .form-control {
                     font-size: 12px;
                     border-radius: 0;
@@ -124,7 +22,7 @@
                 }
                 
             }
-            .advanced-search {
+            .button-advanced-search {
                 background: #FFFFFF !important;
                 float: left;
                 border: 1px solid #3c5382;
@@ -137,399 +35,147 @@
                 margin: 0 0 0 10px;
                 font-size: 12px;
             }
-
         }
-       
-        .image-school-name {
-            width: 60px;
-        }
-        .container-logo {
-            width: 291px;
-            position: absolute;
-            top: 105px;
-            float: left;
-            box-shadow: 4px 2px 25px 10px #CCC;
-            .image-logo {
-                height: 232px;
-            }
-
-            .school-name {
-                font-size: 20px;
-                font-weight: bold;
-                padding: 0px 10px;
-                font-family: cursive;
-                color: #F8DD97;
-                background: #1E154E;
-            }
-        }
-        .container-main {
-            display: inline-block;
-            float: left;
-            padding-left: 58px;
-            top: 30px;
-            position: absolute;
-            .menu-item {
-                display: inline-block;
-                padding: 10px 20px;
-                font-size: 16px;
-                font-weight: bold;
-                color: #1E154E;
-                font-family: Century Gothic;
-               
-            }
-        }
-    }
-
-    .container {
-        @media (min-width: 992px) {
-            .col-md-2 {
-                width: 16.66666667%;
-                text-align: center;
-                .image-icon {
-                    cursor: pointer;
-                }
-            }
-        }       
-    }
-
-    @media (min-width: 1200px) {
         .container {
-            width: 100%;
-        }
+            background-color: #FFFFFF !important;
+            padding: 0 50px 0 0 !important;
+            color: #3c5382;
+            &.hidden-advanced-search {
+                visibility:hidden;
+                opacity:0;
+                transition:visibility 0.15s linear,opacity 0.3s linear;
+            } 
+            &.visible-advanced-search {
+                visibility: visible;
+                opacity: 1.0;
+            }
+            .col-12 {
+                font-size: 18px;
+                font-weight: bold;
+                padding: 0 20px 20px 20px;
+            }
+            .advance {
+                margin-top: 20px;
+            }
+        }     
+    } 
+    .container-advance-search {
+        height: 300px;
+        transition: height 0.3s ease-in;
     }
-    
-    .container-drop-down-menu {
-        height: 45px;
-        background: #FFFFFF;
-        padding-left: 130px;
-        padding-top: 15px;
-        box-shadow: 0 1px 10px 0px #CCC;
-        margin-bottom: 10px;
-        font-size: 13px;
-        .drop-dwon {
-            height: 100%;
-            font-size: 13px;
-            font-family: 'Century Gothic';
-            display: inline-block;
-            width: 155px;
-            padding-left: 5px;
-            cursor: pointer;
-            .fa-chevron-down {
-                display: inline-block;
-                padding-left: 10px;
-            }
-            .fa-chevron-up {
-                display: none;
-                padding-left: 10px;
-            }
-            .container-categories {
-                font-size: 13px;
-                width: 700px;
-                height: 250px;
-                position: absolute;
-                background: #FFFFFF;
-                left: 65px;
-                z-index: 999;
-               display: none;
-                top: 161px;
-                border: 1px solid #CCC;
-                .list-categories {
-                    list-style: none;
-                    display: contents;
-                    //font-family: 'Century Gothic';
-                    li {
-                        padding: 4px 0 4px 5px;
-                        font-family: 'Century Gothic';
-                        
-                        &:hover {
-                            background: #EEE;
-                        }
-                    }
-                }
-                .column-left {
-                    padding-left: 10px;
-                    width: 33%;
-                    display: inline-block;
-                    float: left;
-                    .top-categories {
-                        padding: 10px 0 0px 10px;
-                        font-size: 13px;
-                        border-bottom: 1px solid;
-                        width: 120px;
-                        font-weight: bold;
-                        font-family: 'Century Gothic';
-                        margin-bottom: 10px;
-                    }
-                }
-                .column-middle {
-                    width: 33%;
-                    display: inline-block;
-                    float: left;
-                    .top-authors {
-                        padding: 10px 0 0px 10px;
-                        font-size: 13px;
-                        border-bottom: 1px solid;
-                        width: 120px;
-                        font-weight: bold;
-                        font-family: 'Century Gothic';
-                        margin-bottom: 10px;
-                    }
-                }
-
-                .column-right {
-                    width: 33%;
-                    display: inline-block;
-                    float: left;
-                    .top-authors {
-                        padding: 10px 0 0px 10px;
-                        font-size: 16px;
-                        border-bottom: 1px solid;
-                        width: 150px;
-                        font-weight: bold;
-                    }
-                }
-            }
-            &:hover {
-                border-bottom: 2px solid #3D414A;
-                .container-categories {
-                    display: block;
-                    border-top: 5px solid #2F9AC1;
-                }
-                .fa-chevron-down {
-                    display: none;
-                }
-                .fa-chevron-up {
-                    display: inline-block;
-                }
-            }
-        }
-
-        .top-sellers {
-            display: inline-block;
-            margin-left: 80px;
-            font-family: 'Century Gothic';
-            height: 100%;
-            cursor: pointer;
-            &:hover {
-                border-bottom: 2px solid #3D414A;
-            }
-        }
-
-        .coming-soon {
-            display: inline-block;
-            margin-left: 40px;
-            font-family: 'Century Gothic';
-            height: 100%;
-            cursor: pointer;
-            &:hover {
-                border-bottom: 2px solid #3D414A;
-            }
-        }
-
-        .bargain {
-            display: inline-block;
-            margin-left: 40px;
-            font-family: 'Century Gothic';
-            height: 100%;
-            cursor: pointer;
-            &:hover {
-                border-bottom: 2px solid #3D414A;
-            }
-        }
-
-        .highlights {
-            display: inline-block;
-            margin-left: 40px;
-            font-family: 'Century Gothic';
-            height: 100%;
-            cursor: pointer;
-            &:hover {
-                border-bottom: 2px solid #3D414A;
-            }
-        }
-        
-    }
-
-   
-
-    .left-content { 
-        width: 20%;
-        height: 100%;
-        //background: lightgreen;
+    .left-content {  
+        width: 5%;
+        height: 100%; 
         display: inline-block;
         .left-menu {
             height: 100%;
             width: 250px;
             float: right;
             padding: 0 10px;
-            box-shadow: 0 1px 10px 0px #CCC;
             margin-right: 15px;
-            .form-control {
-                margin: 0 !important;
-                border-radius: 0 !important;
-                font-family: century gothic;
-            }
-            h3 {
-                font-family: century gothic;
-            }
-        }
-        .left-menu-contents {
-            background: lightblue;
-            width: 75%;
-            height: 100%;
-            float: right;
-        }
-        .form-control {
-            width: 230px !important;
-            margin: 0 !important;
-            border-radius: 0 !important;
-            font-family: century gothic;
         }
     }
 
     .right-content { 
-        width: 75%;
+        width: 90%;
         height: 100%;
         display: inline-block;
         box-shadow: 0 1px 10px 0px #CCC;
-       
         margin-right: 5%;
+        .container {
+            box-shadow: none;
+            background: #FFF !important;
+            .col-md-2 {
+                text-align: center;
+            } 
+        }
+        .carousel {
+            margin-bottom: 0;
+            padding: 0 40px 30px 40px;
+            height: 594px;
+            img {
+                width: 90px;
+                height: 90px;
+            }
+            .title {
+                color: #000;
+                font-size: 12px;
+                font-weight: bold;
+                font-family: century gothic;
+               padding-top: 5px;
+            }
+            .category {
+                color: #8A98A0;
+                font-size: 12px;
+                font-weight: bold;
+                //padding: 5px 0;
+                font-family: century gothic;
+            }
+            .author {
+                color: #8A98A0;
+                font-size: 12px;
+                font-weight: bold;
+               padding: 5px 0;
+                font-family: century gothic;
+            }
+            .price {
+                color: #E0482A;
+                font-size: 16px;
+                font-weight: bold;
+                padding: 5px 0;
+                font-family: century gothic;
+            }
         
-    }
-
-
-    .books-banner {
-        height: 150px;
-        margin: 0 42px 5px 40px;
-        position: relative;
-        padding-bottom: 50px;
-        box-shadow: 0 1px 10px 0px #AAA;
-        .banner-image {
-            height: 150px;
-            width: 70%;
-            float: left;
-            &:hover {
-                cursor: pointer;
-                opacity: 0.5;
+            .category-name {
+                text-align: left;
+                font-size: 18px;
+                font-weight: bold;
+                padding-bottom: 5px;
+                color: #E0482A;
+                margin-top: 10px;
+                border-bottom: 1px solid #EEEEEE;
+                margin-bottom: 15px;
+            }
+            .row {
+                .image-icon {
+                    cursor: pointer;
+                }
+            }
+            .add-to-cart {
+                width: 100px !important;
+                font-size: 11px;
+                padding: 5px !important;
             }
         }
-        .map-image {
-            height: 110px;
-            width: 29%;
-            float: right;
-            position: absolute;
-            bottom: 0px;
-            margin: 8px;
-        }
-        .banner-title {
-            position: absolute;
-            bottom: 0px;
-            height: 50px;
-            background: #333;
-            width: 100%;
-            opacity: 0.9;
-            display: none;
-            font-size: 32px;
-            font-family: century gothic;
-            text-align: center;
-            
-        }
-        &:hover {
-            .banner-title {
-                display: block;
-                cursor: pointer;
-               
-            }
-        }
-        .location-shop {
-            display: block;
-            color: #000;
-            font-size: 16px;
-            font-weight: bold;
-            padding: 10px;
-            float: right;
-            width: 30%;
-            font-family: century gothic;
-        }
     }
 
-  .carousel {
-    margin-bottom: 0;
-    padding: 0 40px 30px 40px;
-    height: 594px;
-    img {
-        width: 90px;
-        height: 90px;
+  
+    /* The controlsy */
+    .carousel-control { 
+        left: -12px;
+        height: 40px;
+        width: 40px;
+        background: none repeat scroll 0 0 #222222;
+        border: 4px solid #FFFFFF;
+        border-radius: 23px 23px 23px 23px;
+        margin-top: 260px;       
     }
-    .title {
-        color: #000;
-        font-size: 12px;
-        font-weight: bold;
-        font-family: century gothic;
-       padding-top: 5px;
+    .carousel-control.right {
+        right: -12px;
     }
-    .category {
-        color: #8A98A0;
-        font-size: 12px;
-        font-weight: bold;
-        //padding: 5px 0;
-        font-family: century gothic;
+    /* The indicators */
+    .carousel-indicators {
+        right: 50%;
+        top: auto;
+        bottom: -10px;
+        margin-right: -19px;         
     }
-    .author {
-        color: #8A98A0;
-        font-size: 12px;
-        font-weight: bold;
-       padding: 5px 0;
-        font-family: century gothic;
+    /* The colour of the indicators */
+    .carousel-indicators li {
+        background: #E0482A;
     }
-    .price {
-        color: #E0482A;
-        font-size: 16px;
-        font-weight: bold;
-        padding: 5px 0;
-        font-family: century gothic;
+    .carousel-indicators .active {
+        background: #333;
     }
-
-    .category-name {
-        text-align: left;
-        font-size: 18px;
-        font-weight: bold;
-        padding-bottom: 10px;
-        color: #E0482A;
-        font-family: century gothic;
-    }
-    .add-to-cart {
-        width: 120px !important;
-    }
-}
-/* The controlsy */
-.carousel-control {
-	left: -12px;
-    height: 40px;
-	width: 40px;
-    background: none repeat scroll 0 0 #222222;
-    border: 4px solid #FFFFFF;
-    border-radius: 23px 23px 23px 23px;
-    margin-top: 260px;
-    
-}
-.carousel-control.right {
-	right: -12px;
-}
-/* The indicators */
-.carousel-indicators {
-	right: 50%;
-	top: auto;
-	bottom: -10px;
-    margin-right: -19px;    
-    
-}
-/* The colour of the indicators */
-.carousel-indicators li {
-	background: #E0482A;
-}
-.carousel-indicators .active {
-background: #333;
-}
 }
  

@@ -152,13 +152,11 @@ export default class Books extends React.Component {
 	}
 
     rowClickEvent = (row) => {
-        console.log('Details', row)
-        this.setState({showBookDetail: true, showBooksList: false, bookID: row.id, bookDetail: row})
+        this.setState({showBookDetail: true, bookID: row.id});
     }
 
     onEditItem = (row) => {
-      
-        this.setState({showNewBook: false, showBooksList: false, showEditBook: true, bookDetail: row});
+        this.setState({showNewBook: false, showBooksList: false, showEditBook: true,bookID: row.id, bookDetail: row});
         console.log('------------------------------------------------------',this.state.bookDetail);
     }
 
@@ -209,19 +207,17 @@ export default class Books extends React.Component {
 
 
 	renderRows = (currentBooks) => {
-        // const renderBooks = currentBooks.map((book, index) => {
-        //     return <li key={index}>{book}</li>;
-        //   });
+       
         return currentBooks.length > 0 ? 
         currentBooks.map((row) => {
-          
+          let date = new Date(row.publish_date);
             let imageSource = '../../assets/books/'+row.cover_image;
 			return <tr key={row.id}>
 				<td onClick={() => this.rowClickEvent(row)} key={row.id}>{row.id}</td>
 				<td>{row.title}</td>
                 <td>{row.author_name}</td>
                 <td>{row.book_category}</td>  
-				<td>{row.publish_date}</td>  
+				<td>{date.toDateString()}</td>  
                 <td><img className="small-image img-responsive" src={imageSource} onClick={() => this.rowClickEvent(row)}/></td>
                 <td>{this.renderEditButton(row)}{this.renderDeleteButton(row)}</td>
                
@@ -232,7 +228,7 @@ export default class Books extends React.Component {
     }
     
     onClickNewCategory = () => {
-        this.setState({showNewBook: true, showBooksList: false, showEditBook: false});
+        this.setState({showBookDetail: false, showNewBook: true, showBooksList: false, showEditBook: false});
     }
 
 
@@ -404,9 +400,10 @@ export default class Books extends React.Component {
                        
                 </div>
         }
-        {this.state.showNewBook && <NewBook onClick={this.changeHandler}></NewBook> }
-        {this.state.showEditBook && <EditBook bookDetail={this.state.bookDetail} onClick={this.changeHandler}></EditBook> }
-        {this.state.showBookDetail && <BookDetail bookDetail={this.state.bookDetail} onClick={this.changeHandler}></BookDetail> }
+        {this.state.showBookDetail && <Redirect to={`/books/${this.state.bookID}`} />}
+        {this.state.showNewBook && <Redirect to={`/book/new`} />}
+        {this.state.showEditBook && <Redirect to={`/book/edit/${this.state.bookID}`} />}
+       
         {this.state.showBooksList ?
         <ul className="pagination">
               {renderPrevBtn}

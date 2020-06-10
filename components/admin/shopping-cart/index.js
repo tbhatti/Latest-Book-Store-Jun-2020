@@ -6,6 +6,8 @@ import store from '../../../store'
 import StarRatings from 'react-star-ratings';
 import Storage from '../../../local-storage';
 import Modal from '../../modal/modal';
+import Service from '../../../api-service';
+import $ from 'jquery';
 
 export default class ShoppingCart extends React.Component {
 	constructor (props) {
@@ -27,6 +29,7 @@ export default class ShoppingCart extends React.Component {
     }
     
     componentDidMount = () => {
+        
         let userProfile = Storage.getUserProfile();
         if(userProfile) {
             this.setState({userProfile: userProfile});
@@ -57,30 +60,16 @@ export default class ShoppingCart extends React.Component {
 
     getCartDetails = (id) => {
         if(id) {
-            $.ajax({  
-                type: "POST",  
-                url: "http://localhost:5000/get-cart-details",  
-                data: JSON.stringify({"customer_id": id}),  
-                contentType: "application/json; charset=utf-8",    
-                dataType: "json",
-                success: (data) => {                   
-                    var booksIDs = [];
-                    if(data[0]['error']) {
-                        this.setState({showError: true});
-                        this.setState({itemsList: []});// If error it means there is no item in array
-                    } else {
-                    data.map((item) => {  
-                        booksIDs.push(item.book_id);
-                       
-                    });
-                        this.getBooksList(booksIDs);
-                        this.setState({itemsList: data, bookIds: booksIDs}); 
-                    
+            let data = Service.getCartItems(id);
+            var booksIDs = [];
+                if(data[0]['error']) {
+                    this.setState({showError: true});
+                    this.setState({itemsList: []});// If error it means there is no item in array
+                } else {
+                    data.map((item) => {booksIDs.push(item.book_id);});
+                    this.getBooksList(booksIDs);
+                    this.setState({itemsList: data, bookIds: booksIDs}); 
                 }
-                               
-                },
-                error: ()=> { console.log('There is no item in your shoping cart'); } 
-            });
         } else {
             this.setState({showError: true})
        }
@@ -108,17 +97,7 @@ export default class ShoppingCart extends React.Component {
     }
 
     onRemoveItem = (id) => {
-        $.ajax({  
-            type: "DELETE",  
-            url: "http://localhost:5000/delete-cart-item",  
-            data: JSON.stringify({"cart_id": id}),  
-            contentType: "application/json; charset=utf-8",    
-            dataType: "json",
-            success: (data) => {
-               this.getCartDetails(this.state.userProfile["id"]);            
-            },
-            error: ()=> { console.log('There is no item in your shoping cart') } 
-        });
+        Service.removeCartItem(id, this.state.userProfile["id"])
     }
 
     rowClickEvent = (row) => {
@@ -143,17 +122,22 @@ export default class ShoppingCart extends React.Component {
         if (input.is('input')) {
             input[0][isNegative ? 'stepDown' : 'stepUp']()
         }
-        console.log('000000000000000000000', input[0].value);
 
         let itemsList = [...this.state.itemsList];
         itemsList[index] = {...itemsList[index], quantity: input[0].value};
         this.setState({ itemsList });
     }
 
+    goToBookDetail = (row) => {
+        console.log('====Here is your rwo data======', row);
+        this.setState({bookID: row.book_id, detailsRedirect: true});
+        
+    }
+
     renderRows = () => {
 		return this.state.booksList && this.state.booksList.length > 0 ?  this.state.itemsList.map((row, index) => { 
             this.test = row.quantity;
-           
+            
             const result = this.state.booksList.filter(book =>book.id === Number(row.book_id));             
             let coverImage =  result[0].cover_image;
             let book =  result[0];
@@ -161,8 +145,8 @@ export default class ShoppingCart extends React.Component {
             let imageSource = '../../assets/books/'+coverImage
 			return <span  key={book.id + imageSource}><div className="row" key={book.id + imageSource}>
                 
-            <div className="col-12 col-sm-12 col-md-2 text-center">
-                    <img className="img-responsive small-image" src={imageSource} alt="prewiew"/>
+            <div className="col-12 col-sm-12 col-md-2 text-center" onClick={() => this.goToBookDetail(row)}>
+                    <img  data-toggle="tooltip" data-placement="top" data-original-title={book.title} className=" tooltip-main img-responsive small-image" src={imageSource} alt="prewiew"/>
             </div>
             <div className="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
                 <h5 className="product-name"><strong>{book.title}</strong></h5>
@@ -179,7 +163,7 @@ export default class ShoppingCart extends React.Component {
                         <button value="+" className="plus" onClick={(event)=>{this.updateQuantity(event, row, index)}}>
                             <i className="fa fa-plus"></i>
                         </button>
-                        <input value={this.test} onChange={(event)=>{this.handleQuantityChange(event, row, index)}}  type="number" step="1" max="99" min="1" title="Qty" className="qty"
+                        <input value={this.test} onChange={(event)=>{this.handleQuantityChange(event, row, index)}}  type="number" step="1" max="99" min="1" title="Quantity" className="qty"
                                size="4"/>
                         <button value="-" className="minus" onClick={(event)=>{this.updateQuantity(event, row, index)}}>
                             <i className="fa fa-minus"></i>
@@ -214,11 +198,12 @@ export default class ShoppingCart extends React.Component {
             });
         
 		return (
-            <Layout selectedTab="books" ref='layOut'>
+            <Layout selectedTab="cart" ref='layOut'>
                 <div className="main-shopping-cart-page">
                
                     <div className='page-header'>					
                         <h4><strong>Your Cart</strong></h4>
+                        <a href="" className="btn-outline-info btn-sm pull-right" onClick={this.gotoHome}>Continiu shopping</a>
                     </div> 
                     <div className="cotainer-shopping-cart">
                     {showModal ? (<Modal handleModalCloseClick={this.handleModalCloseClick} handleConfirmClick={(event)=>{this.handleConfirmClick()}}/>) : null}
@@ -226,7 +211,7 @@ export default class ShoppingCart extends React.Component {
                             <div className="card shopping-cart">
                                 <div className="card-header bg-dark text-light">
                                 
-                                <a href="" className="btn btn-outline-info btn-sm pull-right" onClick={this.gotoHome}>Continiu shopping</a>
+                                
                                     <div className="clearfix"></div>
                                 </div>
                                 <div className="card-body">
@@ -240,6 +225,30 @@ export default class ShoppingCart extends React.Component {
                 
                 {this.state.showError ? <div className="alert alert-danger alert-block">
                     <button className="close" data-dismiss="alert">&times;</button>
+                        <span><a href="/home" className="alert-link"></a></span>
+                </div>
+                : <span className="pull-right"><div className=""> <span className="">{}</span>                 
+                        </div>
+                       
+                        <div className="total-amount"><span className="estimated-ship"></span>
+                        </div>
+                       
+                        <div className="total-amount font-weight-bold"> <span className="total-price"></span>
+                        </div>
+
+                        <button type="button" className="btn btn-success">
+                             <span className="fa fa-play"></span>
+                        </button>
+                        
+                    </span>}
+            </div>                         
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div className="page-footer">
+                    {this.state.showError ? <div className="alert alert-danger alert-block">
+                    <button className="close" data-dismiss="alert">&times;</button>
                         <span>There is no item in the cart <a href="/home" className="alert-link">Continue Shopping</a></span>
                 </div>
                 : <span className="pull-right"><div className="total-amount">Subtotal: <span className="sub-total">{total}</span>                 
@@ -249,21 +258,18 @@ export default class ShoppingCart extends React.Component {
                         </div>
                        
                         <div className="total-amount font-weight-bold">Total <span className="total-price">{total + 8}</span>
+                            <button type="button" className="btn btn-danger">
+                                Checkout <span className="fa fa-play"></span>
+                            </button>
                         </div>
 
-                        <button type="button" className="btn btn-success">
-                            Checkout <span className="fa fa-play"></span>
-                        </button>
+                       
                         
                     </span>}
-            </div>                         
-                            </div>
-                        </div>
-                        
-                    </div>
-                                
+                    </div>             
                 </div>
-                {this.state.detailsRedirect && <Redirect to={`/book-detail/${this.state.bookID}`} />}
+               
+                {this.state.detailsRedirect && <Redirect to={`/books/${this.state.bookID}`} />}
                 {this.state.redirectToHome && <Redirect to="/home" />}
             </Layout>
                 
