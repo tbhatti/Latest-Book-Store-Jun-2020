@@ -105,6 +105,11 @@ table tr td:last-child {
     }
 }
 
+table tr td:nth-child(2) { 
+   width: 200px;
+}
+
+
 table tr td:nth-last-child(2) {
     .img-responsive {
         border: 1px solid #ddd;
@@ -166,37 +171,32 @@ h1 {
 }
 
 .page-container-layout {
-    //display: flex;
-    // flex-direction: column;
-    // height: 100%;
-    // font-size: 13px;
-    // font-family: "Century Gothic";
-    // text-align: center;
-    .container-table {
-        padding: 0 50px;
+    
+    // .container-table {
+    //     padding: 0 50px;
         
         
-        .form-group {
-            padding: 0 25px 0 0;
-        }
-    }    
-    .buttons-container {
-        margin-top: auto;
-        padding: 15px;
-    }
+    //     .form-group {
+    //         padding: 0 25px 0 0;
+    //     }
+    // }    
+    // .buttons-container {
+    //     margin-top: auto;
+    //     //padding: 15px;
+    // }
 
-    .container{
-        box-shadow: none;
-        background: #FFF;
-    }
+    // .container{
+    //     box-shadow: none;
+    //     background: #FFF;
+    // }
 
-    .advance-search {
-        width: 180px;
-        margin: 10px;
-        position: absolute;
-        top: 242px;
-        left: 228px;
-    }
+    // .advance-search {
+    //     width: 180px;
+    //     margin: 10px;
+    //     position: absolute;
+    //     top: 242px;
+    //     left: 228px;
+    // }
     .search-buttons-container {
         .input-group {
             padding-left: 40px;
@@ -232,4 +232,48 @@ input[type="button"]{
  }
  input[type="button"]::-moz-focus-inner {
     border: 0;
+ }
+ .bs-tooltip-auto[x-placement^=bottom] .arrow::before,
+ .bs-tooltip-bottom .arrow::before {
+   border-bottom-color: #f00;
+   /* Red */
+ }
+ .tooltip-main {
+   //width: 15px;
+   height: 15px;
+   border-radius: 50%;
+   font-weight: 700;
+   background: #f3f3f3;
+   border: 1px solid #737373;
+   color: #737373;
+   margin: 4px 121px 0 5px;
+   //float: right;
+   text-align: left !important;
+ }
+ 
+ .tooltip-qm {
+   float: left;
+   margin: -2px 0px 3px 4px;
+   font-size: 12px;
+ }
+ 
+ .tooltip-inner {
+   max-width: 236px !important;
+   height: 76px;
+   font-size: 12px;
+   padding: 10px 15px 10px 20px;
+   background: #FFFFFF;
+   color: rgb(0, 0, 0, .7);
+   border: 1px solid #737373;
+   text-align: left;
+ }
+ 
+ .tooltip.show {
+   opacity: 1;
+ }
+ 
+ .bs-tooltip-auto[x-placement^=bottom] .arrow::before,
+ .bs-tooltip-bottom .arrow::before {
+   border-bottom-color: #f00;
+   /* Red */
  }

@@ -10,6 +10,10 @@ import AdminBooksList from './components/admin/books/index.js';
 import Home from './components/home/home.js';
 import ShoppingCart from './components/admin/shopping-cart';
 import Contact from './components/contact/contact';
+import BookDetail from './components/admin/books/view';
+import NewBook from './components/admin/books/new';
+import EditBook from './components/admin/books/edit';
+
 
 
 
@@ -26,6 +30,10 @@ export default () => {
 				<Route path='/admin-books' component={AdminBooksList}/>
 				<Route path='/cart' component={ShoppingCart} />
 				<Route path='/contact' component={Contact} />
+
+				<Route path='/books/:id' component={BookDetail} />
+				<Route path='/book/new' component={NewBook} />
+				<Route path='/book/edit/:id' component={EditBook} />
 
 			
 

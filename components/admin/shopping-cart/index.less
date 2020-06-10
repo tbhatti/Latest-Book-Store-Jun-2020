@@ -1,7 +1,38 @@
 .main-shopping-cart-page {
     .page-header {
         padding-left: 60px;
+        h4 {
+            margin: 0 !important;
+            display: inline-block;
+        }
+          
+    .btn-outline-info {
+            color: #0C2963;
+            background-color: transparent;
+            background-image: none;
+            margin-right: 50px;
+            border: 1px solid #0C2963;
+            padding: 3px 10px;
+        }
+        .btn-outline-info:hover {
+            color: #fff;
+            background-color: #0C2963;
+        }
     }
+    .page-footer {
+        background: #FFFFFF;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 120px;
+        z-index: 4;
+        margin: 0 50px;
+        color: #0C2963;
+        box-shadow: 0 5px 40px -2px #000;
+        border: 1px solid #FFFFFF;
+    }
+ 
 }
 .cotainer-shopping-cart {
     //padding-left: 10%;
@@ -116,13 +147,7 @@ margin: 0;
             font-size: 16px;
         }
     }
-    
-    .btn-outline-info {
-        color: #17a2b8;
-        background-color: transparent;
-        background-image: none;
-        border-color: #17a2b8;
-    }
+  
     
     .btn-primary.btn-outline:hover,
     .btn-success.btn-outline:hover,
@@ -134,10 +159,7 @@ margin: 0;
         color: #fff;
         background-color: #6c757d;
     }
-    .btn-outline-info:hover {
-        color: #fff;
-        background-color: #17a2b8;
-    }
+    
     .img-responsive {
         border: 1px solid #ddd;
         border-radius: 4px;
@@ -145,20 +167,30 @@ margin: 0;
     }
     .img-responsive:hover {
         box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+        cursor: pointer;
       }
 }
 .shopping-cart {
     padding: 0;
+    hr {
+        margin: 0 !important;
+    }
+    .card-header {
+        padding: 10px 0 !important;
+    }
+    .bg-dark {
+        background-color: #0C2963 !important;
+    }
 }
 .container {
     background-color: #FFFFFF;
 }
 }
 .total-amount {
-    padding-right: 110px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     border-bottom: 1px solid #EEEEEE;
     font-size: 15px;
+    margin-top: 10px;
     .sub-total {
         padding-left: 120px;
     }
@@ -168,5 +200,10 @@ margin: 0;
     .total-price {
         padding-left: 155px;
     }
-    
+    .btn-danger {
+        background-color: #E0482A;
+        .fa-play {
+            padding-left: 10px;
+        }
+    }
 }

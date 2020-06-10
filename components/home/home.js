@@ -3,71 +3,44 @@ import { Redirect } from 'react-router-dom'
 import Layout from '../../containers/page-layout'
 import store from '../../store'
 import StarRatings from 'react-star-ratings';
-import Service from '../../api-service'
-import BookDetail from '../admin/books/view';
+import Service from '../../api-service';
 import Storage from '../../local-storage';
-//import AdvanceSearch from '../advanced-search'
-//import FilterSearch from '../filter-search'
+import PubSub from 'pubsub-js';
 
 export default class Home extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			userProfile: {},//store.getState().userReducer.user,
-			bookCategories: [],
+			userProfile: {},
 			booksList: [],
-			redirect: false,
-			bookID: 0,
 			redirectToCart: false,
-			authorsList: [],
 			bookCategories: [],
-			selectedBookCategory: '',
-			selectedAuthor: '',
-			results: [],
-			showAdvanceSearch: false,
-			publishersList: [],
-			showLeftMenu: false,
-			bookDetail: {},
 			showBooksList: true,
 			showBookDetail: false,
-			itemsList: []
+			booksInCart: [],
+			showAdvanceSearch: false
 		}
+		
 	}
 
 	componentDidMount = () => {
-		
+		PubSub.subscribe('books.updated', this.updateBooksList);	
 		let userProfile = Storage.getUserProfile();
 		this.setState({userProfile: userProfile})
 		this.getCategoriesList()
-		this.getBooksList()
-		this.getAuthorsList()
-		this.getCartDetails(userProfile["id"]);
-		$.ajax({
-			type: "GET",
-			url: "http://localhost:5000/publishers-list",
-			contentType: "application/json; charset=utf-8",
-			dataType: "json",
-			success: (data) => {
-				this.setState({ publishersList: data });
-			},
-			error: () => { }
-		});
+		this.getBooksList()		
+		this.getCartDetails(userProfile["id"]); // Needs this to check whether this book already in cart
+	}
+
+	updateBooksList = (event, books) => {
+		this.setState({ booksList: books });
 	}
 
 	getCartDetails = (id) => {
         if(id) {
-            $.ajax({  
-                type: "POST",  
-                url: "http://localhost:5000/get-cart-details",  
-                data: JSON.stringify({"customer_id": id}),  
-                contentType: "application/json; charset=utf-8",    
-                dataType: "json",
-                success: (data) => {                   
-				   this.setState({itemsList: data});
-                },
-                error: ()=> { console.log('There is no item in your shoping cart') } 
-            });
+			let data = Service.getCartItems(id)
+			this.setState({ booksInCart: data });
         } else {
             this.setState({showError: true})
        }
@@ -83,29 +56,18 @@ export default class Home extends React.Component {
 		this.setState({ booksList: data });
 	}
 
-	getAuthorsList = () => {
-		let data = Service.getAuthorsListRequest()
-		this.setState({ authorsList: data });
-	}
-
 	gotoDetail = (book) => {
-		console.log('==================================================================', book);
-		this.setState({ redirect: true, bookID: book.id, bookDetail: book, showBookDetail: true, showBooksList: false })
+		this.setState({bookID: book.id, showBookDetail: true, showBooksList: false })
 	}
-
-	changeHandler = (value) => {
-        this.setState({showBookDetail: false, showBooksList: true});
-    }
 
 	addToCart = (book) => {
 		let alreadyInCart = null;
-		if(this.state.itemsList) {
-			alreadyInCart = this.state.itemsList.filter(cartBook => Number(cartBook.book_id) === Number(book.id));
+		if(this.state.booksInCart) {
+			alreadyInCart = this.state.booksInCart.filter(cartBook => Number(cartBook.book_id) === Number(book.id));
 		}
 		if (alreadyInCart && alreadyInCart.length > 0) {
 			let quantity = Number(alreadyInCart[0].quantity);
 			quantity += 1;
-			let cartId = alreadyInCart[0].id;
 			let data = { "customer_id": this.state.userProfile.id, "book_id": book.id, "quantity": quantity}
 			let updateCart = Service.updateQuantityToCartRequest(data)
 			this.setState({ redirectToCart: updateCart })
@@ -118,62 +80,19 @@ export default class Home extends React.Component {
 		
 	}
 
-	handleInputChange = (event) => {
-		this.setState({
-			query: event.target.value
-		})
+	handleSearchInputChange = (event) => {
+		this.setState({query: event.target.value});
 	}
 
-	keywordSearch = () => {
-		this.setState({ showAdvanceSearch: false })
+	keywordSearchHandler = () => {
 		let keyword = this.state.query
 		let books = Service.keywordSearchRequest(keyword)
 		this.setState({ booksList: books })
 	}
 
-
-
-	categoryClickEvent = (category) => {
-		let books = Service.filterBooksByCategory(category.name)
-		this.setState({ booksList: books })
-	}
-
-	authorClickEvent = (author) => {
-		let books = Service.filterBooksByAuthor(author.name)
-		this.setState({ booksList: books })
-	}
-
-
-
-	toAdvanceSearch = () => {
-		this.setState({ showAdvanceSearch: true, showLeftMenu: false })
-	}
-
-	searchHandler = (booksList) => {
-
-		console.log('HI I AM HERE!!!!', booksList)
-
-		this.setState({ showLeftMenu: true, showAdvanceSearch: false })
-	}
-
-	renderBookCategories = (row) => {
-		return (
-			<ul className="list-categories" >
-				{this.state.bookCategories.map(function (cat, index) {
-					return <li key={index} onClick={() => this.categoryClickEvent(cat)}>{cat.name}</li>;
-				}, this)}
-			</ul>
-		)
-	}
-
-	renderAuthors = () => {
-		return (
-			<ul className="list-categories" >
-				{this.state.authorsList.map(function (author, index) {
-					return <li key={index} onClick={() => this.authorClickEvent(author)}>{author.name}</li>;
-				}, this)}
-			</ul>
-		)
+	advanceSearchClickHandler = () => {
+		this.setState({showAdvanceSearch: !this.state.showAdvanceSearch});
+		console.log('advanceSearchClickHandleradvanceSearchClickHandler');
 	}
 
 	renderBooks = (books) => {
@@ -195,7 +114,6 @@ export default class Home extends React.Component {
 			</div>
 		})
 	}
-
 	renderBookCategoriesItems = () => {
 		let classname = ''
 		let activeItemFlag = false
@@ -219,63 +137,80 @@ export default class Home extends React.Component {
 				: null
 		})
 	}
+	
 
 	render() {
 		return (
-			<Layout selectedTab="home">
-				<div className="page-container-layout home-page">
-					<div className='container-top-header'>
-						<div className="logo-container"> <img className='logo' src='../../assets/logo.png' alt='Talent Manager' />
-							
-						</div>
+			<Layout selectedTab="home"> 
+				<div className="container-non-admin-home non-admin-home-page">
+					<div className={"container-top-header " + (this.state.showAdvanceSearch ? 'container-advance-search' : '')} >						
 						<div className="buttons-container">
 							<div className="form-group">
-								<input className="form-control" placeholder="Keyword Search for books by Title / Bppk Category / Author Name" onChange={this.handleInputChange} />
+								<input className="form-control" placeholder="Keyword Search for books by Title / Bppk Category / Author Name" onChange={this.handleSearchInputChange} />
 							</div>
-
-							<button type="button" className="btn btn-primary btn-info search" onClick={this.keywordSearch}>
+							<button type="button" className="btn btn-primary btn-info search" onClick={this.keywordSearchHandler}>
 								Search
-								</button>
-
-							<button type="button" className="btn btn-primary advanced-search" onClick={this.toAdvanceSearch}>
+							</button>
+							<button type="button" className="btn btn-primary button-advanced-search" onClick={this.advanceSearchClickHandler} >
 								<i className="fa fa-cog"></i> Advanced Search
-								</button>
+							</button>
 						</div>
-					</div>
-					<div className="container-drop-down-menu left-gap">
-						<span className="drop-dwon">Shop By Category
-								<span className="fa fa-chevron-down"> </span>
-							<span className="fa fa-chevron-up"> </span>
-							<div className="container-categories">
-								<div className="column-left">
-									<div className="top-categories">Top Categories</div>
-									{this.state.bookCategories.length > 0 ? this.renderBookCategories() : null}
+						<div className={"container " + (this.state.showAdvanceSearch ? 'visible-advanced-search' : 'hidden-advanced-search')}>
+							<div className="row">
+								<div className="col-12">
+									Advanced Search
 								</div>
-								<div className="column-middle">
-									<div className="top-authors">Top Authors</div>
-									{this.state.bookCategories.length > 0 ? this.renderAuthors() : null}
-								</div>
-
 							</div>
-						</span>
-						<span className="top-sellers">Top Sellers</span>
-						<span className="coming-soon">Coming Soon</span>
-						<span className="highlights">Highlights</span>
-						<span className="bargain">Bargain Shop</span>
-					</div>
-
-					<div className="left-content">
-						{this.state.showLeftMenu ? <div className="left-menu">
-							<h3>Filter your search</h3>
-							
+						<div className="row">
+							<div className="col-sm">
+							<fieldset >
+								<div className="form-group">
+									<label>Keyword</label>
+									<input type="text" id="Keyword" className="form-control" placeholder="Keyword"/>
+								</div>
+								<div className="form-group">
+									<label>Title</label>
+									<input type="text" id="Title" className="form-control" placeholder="Title"/>
+								</div>
+							</fieldset>
+							</div>
+							<div className="col-sm">
+							<fieldset >
+								<div className="form-group">
+									<label>Category</label>
+									<input type="text" id="Category" className="form-control" placeholder="Category"/>
+								</div>
+								<div className="form-group">
+									<label>Author</label>
+									<input type="text" id="Author" className="form-control" placeholder="Author"/>
+								</div>
+							</fieldset>
+							</div>
+							<div className="col-sm">
+							<fieldset >
+								<div className="form-group">
+									<label>Publisher</label>
+									<input type="text" id="Publisher" className="form-control" placeholder="Publisher"/>
+								</div>
+								<div className="form-group">
+								
+								<button type="button" className="btn btn-primary advance" >
+									Search
+								</button>
+								</div>
+							</fieldset>
+							</div>
 						</div>
-							:
-							<div className="left-menu-contents"></div>
-						}
+						</div>
+					</div>
+			
+					<div className="left-content">
+						<div className="left-menu">
+						</div>
 					</div>
 					<div className="right-content">
 						{/*Carousal Starts here**/}
-						<div className="container">
+						<div className="container"> 
 							
 							<div className="row">
 							<div className="col-md-12">
@@ -292,7 +227,6 @@ export default class Home extends React.Component {
 										<a data-slide="prev" href="#Carousel" className="left carousel-control">‹</a>
 										<a data-slide="next" href="#Carousel" className="right carousel-control">›</a>
 							</div> }
-									{this.state.showBookDetail && <BookDetail bookDetail={this.state.bookDetail} onClick={this.changeHandler}></BookDetail> }
 								</div>
 							</div>
 						</div>
@@ -301,6 +235,7 @@ export default class Home extends React.Component {
 				
 
 				{this.state.redirectToCart && <Redirect to="/cart" />}
+				{this.state.showBookDetail && <Redirect to={`/books/${this.state.bookID}`} />}
 			</Layout>
 
 		)
