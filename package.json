@@ -30,7 +30,7 @@
     "css-loader": "^0.28.5",
     "express-fileupload": "^0.4.0",
     "less-loader": "^4.0.5",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.19",
     "pubsub-js": "^1.8.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
