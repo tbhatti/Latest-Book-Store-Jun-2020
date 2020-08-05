@@ -28,7 +28,7 @@
     "bootstrap": "^4.1.1",
     "classnames": "^2.2.6",
     "css-loader": "^0.28.5",
-    "express-fileupload": "^0.4.0",
+    "express-fileupload": "^1.1.9",
     "less-loader": "^4.0.5",
     "lodash": "^4.17.10",
     "pubsub-js": "^1.8.0",
